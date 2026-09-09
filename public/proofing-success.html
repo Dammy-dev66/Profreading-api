@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Payment received | Finbar B.</title>
+  <style>
+    :root {
+      --ink: #071c43;
+      --gold: #dda31d;
+      --paper: #fcfbf8;
+      --line: #d9d0c2;
+      --whatsapp: #25d366;
+      --whatsapp-dark: #128c4a;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Arial, sans-serif;
+    }
+    .page {
+      width: min(680px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 42px 0 64px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 44px;
+    }
+    .brand-mark {
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #1f5dbd;
+      font-family: Georgia, serif;
+      font-size: 25px;
+    }
+    .brand-name {
+      font-family: Georgia, serif;
+      font-size: 22px;
+    }
+    .brand-subtitle {
+      display: block;
+      margin-top: 4px;
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .16em;
+    }
+    .panel {
+      border: 1px solid var(--line);
+      background: #fffdfa;
+      padding: clamp(28px, 6vw, 52px);
+    }
+    .eyebrow {
+      margin: 0 0 10px;
+      color: #0750a8;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0 0 16px;
+      font-family: Georgia, serif;
+      font-size: clamp(30px, 6vw, 44px);
+      font-weight: 400;
+      line-height: 1.08;
+    }
+    .lede {
+      margin: 0;
+      color: #334d73;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+    .whatsapp-cta {
+      margin-top: 30px;
+      padding: 20px;
+      border: 1px solid #b9e8c9;
+      background: #f0fbf4;
+    }
+    .whatsapp-cta p {
+      margin: 0 0 14px;
+      color: #174b2d;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+    .whatsapp-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 18px;
+      border: 1px solid var(--whatsapp);
+      background: var(--whatsapp);
+      color: #082b17;
+      box-shadow: 0 2px 0 var(--whatsapp-dark);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .whatsapp-button:hover,
+    .whatsapp-button:focus-visible {
+      background: #20bd59;
+      border-color: var(--whatsapp-dark);
+    }
+    .whatsapp-icon { width: 20px; height: 20px; flex: 0 0 20px; }
+    .back-link {
+      display: inline-block;
+      margin-top: 28px;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="brand" aria-label="Finbar B. Elite Tutoring">
+      <div class="brand-mark" aria-hidden="true">FB</div>
+      <div class="brand-name">Finbar B.<span class="brand-subtitle">Elite Tutoring</span></div>
+    </header>
+
+    <section class="panel">
+      <p class="eyebrow">Payment received</p>
+      <h1>Thanks, your payment was received.</h1>
+      <p class="lede">Your proofreading request is now with Fin. You will receive updates and the completed work by email.</p>
+
+      <div class="whatsapp-cta">
+        <p>Have a question about your proofreading request? Message Fin on WhatsApp and he will help you directly.</p>
+        <a class="whatsapp-button" href="https://wa.me/353899792541?text=Hi%20Fin%2C%20I%20have%20just%20paid%20for%20proofreading%20and%20would%20like%20to%20ask%20a%20question." target="_blank" rel="noopener" aria-label="Message Fin on WhatsApp">
+          <svg class="whatsapp-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M20.5 11.5a8.5 8.5 0 0 1-12.58 7.46L3.5 20.5l1.56-4.21A8.5 8.5 0 1 1 20.5 11.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M8.8 8.4c.2-.3.4-.3.7-.3h.5c.2 0 .4.1.5.4l.7 1.7c.1.2.1.4-.1.6l-.5.6c.5 1 1.3 1.8 2.3 2.3l.6-.5c.2-.2.4-.2.6-.1l1.7.7c.3.1.4.3.4.5v.5c0 .3 0 .5-.3.7-.3.2-.8.4-1.2.4-2.3 0-5.4-3.1-5.4-5.4 0-.4.2-.9.4-1.2Z" fill="currentColor"/>
+          </svg>
+          <span>Message Fin on WhatsApp</span>
+        </a>
+      </div>
+
+      <a class="back-link" href="https://finbrady.carrd.co/">Back to site</a>
+    </section>
+  </main>
+</body>
+</html>

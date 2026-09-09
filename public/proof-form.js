@@ -1,6 +1,7 @@
 (function () {
   const WEBHOOK_URL = "https://hook.eu1.make.com/tnxiqbhiucio14474kmex2uh5ic7o14n";
   const DOCUMENT_API_URL = "https://profreading-api.vercel.app/api/convert";
+  const PAYMENT_SUCCESS_URL = "https://profreading-api.vercel.app/proofing-success.html";
 
   const form = document.getElementById("fbProofForm");
   if (!form) return;
@@ -142,6 +143,8 @@
       formData.set("english_preference", englishPreferenceInput.value);
       formData.set("submission_date", new Date().toISOString());
       formData.set("request_status", "New");
+      // Make should map this value to Stripe Checkout's success URL.
+      formData.set("success_url", PAYMENT_SUCCESS_URL);
 
       const response = await fetch(WEBHOOK_URL, { method: "POST", body: formData });
       let result = {};
