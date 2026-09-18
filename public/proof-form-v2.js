@@ -68,7 +68,8 @@
     function updateEstimate() {
       const source = useUploadedDocumentText ? uploadedDocumentText : text.value;
       const words = source.trim() ? countWords(source) : 0;
-      const total = "€" + (words * rate).toFixed(2);
+      const estimatedTotal = words ? Math.max(words * rate, 0.5) : 0;
+      const total = "€" + estimatedTotal.toFixed(2);
       wordCount.textContent = String(words);
       cost.textContent = total;
       wordCountInput.value = String(words);
@@ -326,6 +327,9 @@
       addReviewRow("Document word count", wordCountInput.value || "0");
       addReviewRow("Maximum word count", $("#fbWordCountLimit").value || "No limit specified");
       addReviewRow("English preference", englishPreferenceInput.value || "No preference selected");
+      addReviewRow("Name", $('input[name="client_name"]').value.trim());
+      addReviewRow("Email", $('input[name="client_email"]').value.trim());
+      addReviewRow("Editing instructions", $('textarea[name="additional_editing_instructions"]').value.trim() || "None provided");
       addReviewRow("Your local time", localTimeText());
       addReviewRow("Tutor time", document.querySelector("[data-editor-time]").textContent + " " + document.querySelector("[data-editor-zone]").textContent);
       addReviewRow("Expected response", responseNote ? responseNote.textContent : "Within 24 hours");
