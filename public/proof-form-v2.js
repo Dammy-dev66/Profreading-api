@@ -138,9 +138,31 @@
       return true;
     }
 
-    function initializePickers() {
+    function loadFlatpickr() {
+      if (typeof window.flatpickr === "function") return Promise.resolve();
+      if (window.fbProofFlatpickrLoader) return window.fbProofFlatpickrLoader;
+
+      window.fbProofFlatpickrLoader = new Promise((resolve, reject) => {
+        const style = document.createElement("link");
+        style.rel = "stylesheet";
+        style.href = "https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css";
+        document.head.appendChild(style);
+
+        const script = document.createElement("script");
+        script.src = "https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js";
+        script.onload = () => typeof window.flatpickr === "function"
+          ? resolve()
+          : reject(new Error("Flatpickr did not load."));
+        script.onerror = () => reject(new Error("Flatpickr could not load."));
+        document.head.appendChild(script);
+      });
+      return window.fbProofFlatpickrLoader;
+    }
+
+    async function initializePickers() {
       const onChange = () => updateDeadline();
-      if (typeof window.flatpickr === "function") {
+      try {
+        await loadFlatpickr();
         window.flatpickr(dateInput, {
           dateFormat: "Y-m-d",
           altInput: true,
@@ -159,9 +181,10 @@
           disableMobile: true,
           onChange
         });
-      } else {
-        dateInput.type = "date";
-        timeInput.type = "time";
+      } catch (error) {
+        console.warn("Calendar picker could not load.", error);
+        dateInput.placeholder = "YYYY-MM-DD";
+        timeInput.placeholder = "HH:MM";
       }
       dateInput.addEventListener("change", updateDeadline);
       timeInput.addEventListener("change", updateDeadline);
