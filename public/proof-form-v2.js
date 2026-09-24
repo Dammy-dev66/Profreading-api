@@ -27,8 +27,8 @@
     const deadlineTimezoneInput = $("#fbDeadlineTimezone");
     const deadlineUtcInput = $("#fbDeadlineUtc");
     const deadlineDublinInput = $("#fbDeadlineDublinLocal");
-    const consent = $("#fbReviewConsent");
-    const paymentAck = $("#fbPaymentAck");
+    const emailInput = $('input[name="client_email"]');
+    const emailConfirmInput = $('input[name="client_email_confirm"]');
     const submit = $(".fb-submit");
     const fileInput = $('input[name="uploaded_document"]');
     const uploadBox = $(".fb-upload");
@@ -44,7 +44,7 @@
 
     const requiredNodes = [text, wordCount, cost, wordCountInput, costInput, serviceLevelInput,
       englishPreferenceInput, dateInput, timeInput, deadlineInput, deadlineTimezoneInput,
-      deadlineUtcInput, deadlineDublinInput, consent, paymentAck, submit, fileInput,
+      deadlineUtcInput, deadlineDublinInput, emailInput, emailConfirmInput, submit, fileInput,
       uploadBox, uploadLabel, uploadStatus, uploadTitle, uploadMessage, modal, reviewList,
       editButton, payButton, closeButton];
     if (requiredNodes.some((node) => !node)) {
@@ -241,7 +241,7 @@
     }
 
     function updateSubmitState() {
-      submit.disabled = paymentPending || !(consent.checked && paymentAck.checked);
+      submit.disabled = paymentPending;
     }
 
     function setUploadState(state, title, message) {
@@ -265,7 +265,7 @@
       }
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify({
         name: $('input[name="client_name"]').value,
-        email: $('input[name="client_email"]').value
+        email: emailInput.value
       }));
     }
 
@@ -274,7 +274,8 @@
         const saved = JSON.parse(window.localStorage.getItem(STORAGE_KEY) || "null");
         if (!saved) return;
         $('input[name="client_name"]').value = saved.name || "";
-        $('input[name="client_email"]').value = saved.email || "";
+        emailInput.value = saved.email || "";
+        emailConfirmInput.value = saved.email || "";
       } catch (error) {
         console.warn("Remembered proofreading details could not be restored.", error);
       }
@@ -344,6 +345,12 @@
       updateEstimate();
       updateEnglishPreference();
       if (!form.reportValidity()) return false;
+      if (emailInput.value.trim().toLowerCase() !== emailConfirmInput.value.trim().toLowerCase()) {
+        emailConfirmInput.setCustomValidity("Email addresses do not match.");
+        emailConfirmInput.reportValidity();
+        return false;
+      }
+      emailConfirmInput.setCustomValidity("");
       if (!text.value.trim() && !fileInput.files.length) {
         window.alert("Please paste your text or upload a document before continuing.");
         text.focus();
@@ -438,8 +445,7 @@
       updateEstimate();
     });
     text.addEventListener("paste", () => window.setTimeout(updateEstimate, 0));
-    consent.addEventListener("change", updateSubmitState);
-    paymentAck.addEventListener("change", updateSubmitState);
+    emailConfirmInput.addEventListener("input", () => emailConfirmInput.setCustomValidity(""));
 
     fileInput.addEventListener("change", async () => {
       const file = fileInput.files[0];
