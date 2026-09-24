@@ -409,16 +409,16 @@
         if (!response.ok || !result.success || !result.checkout_url) {
           throw new Error(result.error || "Payment link was not created.");
         }
-        payButton.textContent = "Redirecting to Stripe...";
-        submit.textContent = "Redirecting to Stripe...";
+        payButton.textContent = "Opening secure payment...";
+        submit.textContent = "Opening secure payment...";
         window.location.assign(result.checkout_url);
       } catch (error) {
         console.error(error);
         window.alert("Something went wrong while creating the payment page. Please try again.");
         paymentPending = false;
         payButton.disabled = false;
-        payButton.textContent = "Continue to Stripe →";
-        submit.textContent = "Review request →";
+        payButton.textContent = "Pay now →";
+        submit.textContent = "Review and pay →";
         updateSubmitState();
       }
     }
